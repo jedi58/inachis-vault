@@ -3,7 +3,7 @@
 namespace Inachis\Vault;
 
 /**
- * Object for handling custom URLs that are mapped to content
+ * Object for handling Items
  * @Entity @Table
  */
 class Item
