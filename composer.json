@@ -1,5 +1,5 @@
 {
-    "name": "jedi58/inachis/vault",
+    "name": "jedi58/inachis-vault",
     "type": "library",
     "description": "An extension to the Inachis framework for recording collections",
     "keywords": ["dev"],
