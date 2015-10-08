@@ -36,9 +36,9 @@ class ItemType
      * @param type $image_url
      */
     public function __construct(
-            $title = '',
-            $description = '',
-            $image_url = ''
+            string $title = '',
+            string $description = '',
+            string $image_url = ''
     ) {
         $this->__set('title', $title);
         $this->__set('description', $description);
@@ -49,7 +49,7 @@ class ItemType
      * @param type $var
      * @return type
      */
-    public function __get($var)
+    public function __get(string $var)
     {
         switch ($var) {
             case 'id':
@@ -64,22 +64,22 @@ class ItemType
                 return $this->__get($var);
         }
     }
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
     
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
     
-    public function getDescription()
+    public function getDescription() : string
     {
         return $this->description;
     }
     
-    public function getImageUrl()
+    public function getImageUrl() : string
     {
         return $this->image_url;
     }
@@ -88,7 +88,7 @@ class ItemType
      * @param type $var
      * @param type $value
      */
-    public function __set($var, $value)
+    public function __set(string $var, $value)
     {
         switch ($var) {
             case 'id':
@@ -104,22 +104,22 @@ class ItemType
         }        
     }
     
-    public function setId($value)
+    public function setId(string $value)
     {
         $this->id = $value;
     }
     
-    public function setTitle($value)
+    public function setTitle(string $value)
     {
         $this->title = $value;
     }
     
-    public function setDescription($value)
+    public function setDescription(string $value)
     {
         $this->description = $value;
     }
     
-    public function setImageUrl($value)
+    public function setImageUrl(string $value)
     {
         $this->image_url = $value;
     }

@@ -48,11 +48,11 @@ class ItemRange
      * @param type $image_url
      */
     public function __construct(
-            $title = '',
-            $description = '',
-            $start_year = 0,
-            $end_year = 0,
-            $image_url = ''
+            string $title = '',
+            string $description = '',
+            int $start_year = 0,
+            int $end_year = 0,
+            string $image_url = ''
     ) {
         $this->__set('title', $title);
         $this->__set('description', $description);
@@ -84,32 +84,32 @@ class ItemRange
                 return $this->__get($var);
         }
     }
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
     
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
     
-    public function getDescription()
+    public function getDescription() : string
     {
         return $this->description;
     }
     
-    public function getStartYear()
+    public function getStartYear() : int
     {
         return (int) $this->start_year;
     }
     
-    public function getEndYear()
+    public function getEndYear() : int
     {
         return (int) $this->end_year;
     }
     
-    public function getImageUrl()
+    public function getImageUrl() : string
     {
         return $this->image_url;
     }
@@ -138,32 +138,32 @@ class ItemRange
         }        
     }
     
-    public function setId($value)
+    public function setId(string $value)
     {
         $this->id = $value;
     }
     
-    public function setTitle($value)
+    public function setTitle(string $value)
     {
         $this->title = $value;
     }
     
-    public function setDescription($value)
+    public function setDescription(string $value)
     {
         $this->description = $value;
     }
     
-    public function setStartYear($value)
+    public function setStartYear(int $value)
     {
         $this->start_year = (int) $value;
     }
     
-    public function setEndYear($value)
+    public function setEndYear(int $value)
     {
         $this->end_year = (int) $value;
     }
     
-    public function setImageUrl($value)
+    public function setImageUrl(string $value)
     {
         $this->image_url = $value;
     }

@@ -84,17 +84,17 @@ class UserItem
      * @param string $added_date The date the item was added to the collection
      */
     public function __construct(
-            $item_id = '', 
-            $user_id = '', 
-            $condition = '', 
-            $complete = false, 
-            $grade = '', 
-            $location = '', 
-            $signed = '', 
-            $cost = 0.00, 
-            $item_value = 0.00, 
-            $notes = '', 
-            $added_date = '') {
+            string $item_id = '', 
+            string $user_id = '', 
+            string $condition = '', 
+            bool $complete = false, 
+            string $grade = '', 
+            string $location = '', 
+            string $signed = '', 
+            float $cost = 0.00, 
+            float $item_value = 0.00, 
+            string $notes = '', 
+            string $added_date = '') {
         $this->__set('item_id', $item_id);
         $this->__set('user_id', $user_id);
         $this->__set('condition', $condition);
@@ -139,62 +139,62 @@ class UserItem
         }
     }
     
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
     
-    public function getItemId()
+    public function getItemId() : string
     {
         return $this->item_id;
     }
     
-    public function getUserId()
+    public function getUserId() : string
     {
         return $this->user_id;
     }
     
-    public function getCondition()
+    public function getCondition() :string
     {
         return $this->condition;
     }
     
-    public function getComplete()
+    public function getComplete() : bool
     {
         return (bool) $this->complete;
     }
     
-    public function getGrade()
+    public function getGrade() : string
     {
         return $this->grade;
     }
     
-    public function getLocation()
+    public function getLocation() : string
     {
         return $this->location;
     }
     
-    public function getSigned()
+    public function getSigned() : string
     {
         return $this->signed;
     }
     
-    public function getCost()
+    public function getCost() : float
     {
         return (float) $this->cost;
     }
     
-    public function getItemValue()
+    public function getItemValue() : float
     {
         return (float) $this->item_value;
     }
     
-    public function getNotes()
+    public function getNotes() : string
     {
         return $this->notes;
     }
     
-    public function getAddedDate()
+    public function getAddedDate() : string
     {
         return $this->added_date;
     }
@@ -231,62 +231,62 @@ class UserItem
         }
     }
     
-    public function setId($value)
+    public function setId(string $value)
     {
         $this->id = $value;
     }
     
-    public function setItemId($value)
+    public function setItemId(string $value)
     {
         $this->item_id = $value;
     }
     
-    public function setUserId($value)
+    public function setUserId(string $value)
     {
         $this->user_id = $value;
     }
     
-    public function setCondition($value)
+    public function setCondition(string $value)
     {
         $this->condition = $value;
     }
     
-    public function setComplete($value)
+    public function setComplete(bool $value)
     {
         $this->complete = (bool) $value;
     }
     
-    public function setGrade($value)
+    public function setGrade(string $value)
     {
         $this->grade = $value;
     }
     
-    public function setLocation($value)
+    public function setLocation(string $value)
     {
         $this->location = $value;
     }
     
-    public function setSigned($value)
+    public function setSigned(string $value)
     {
         $this->signed = $value;
     }
     
-    public function setCost($value)
+    public function setCost(float $value)
     {
         $this->cost = (float) $value;
     }
     
-    public function setItemValue($value)
+    public function setItemValue(float $value)
     {
         $this->item_value = (float) $value;
     }
     
-    public function setNotes($value)
+    public function setNotes(string $value)
     {
         $this->notes = $value;
     }
     
-    public function setAddedDate($value)
+    public function setAddedDate(string $value)
     {
         $this->added_date = $value;
     }

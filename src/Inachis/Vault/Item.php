@@ -87,11 +87,11 @@ class Item
      * @param string $type_id The UUID of the type of item it is
      */
     public function __construct (
-            $title = '',
-            $description = '',
-            $range_id = '',
-            $type_id = '',
-            $user_id = ''
+            string $title = '',
+            string $description = '',
+            string $range_id = '',
+            string $type_id = '',
+            string $user_id = ''
     ) {
         $this->__set('title', $title);
         $this->__set('description', $description);
@@ -102,7 +102,7 @@ class Item
         $this->__set('user_id', $user_id);
     }
     
-    public function __get($var)
+    public function __get(string $var)
     {
         switch ($var) {
             case 'id':
@@ -141,77 +141,77 @@ class Item
      * Returns the UUID of the object
      * @return int The UUID of the Inachis\Vault\Item
      */
-    public function getId()
+    public function getId() : string
     {
         return (int) $this->id;
     }
     
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
     
-    public function getDescription()
+    public function getDescription() : string
     {
         return $this->description;
     }
     
-    public function getBarcode()
+    public function getBarcode() : string
     {
         return $this->barcode;
     }
     
-    public function getImageUrl()
+    public function getImageUrl() : string
     {
         return $this->image_url;
     }
     
-    public function getYear()
+    public function getYear() : int
     {
         return (int) $this->year;
     }
     
-    public function getBom()
+    public function getBom() : string
     {
         return $this->bom;
     }
     
-    public function getSpecial()
+    public function getSpecial() : bool
     {
         return (bool) $this->getSpecial;
     }
     
-    public function getVariant()
+    public function getVariant() : string
     {
         return $this->variant;
     }
     
-    public function getCreateDate()
+    public function getCreateDate() : string
     {
         return $this->create_date;
     }
     
-    public function getModDate()
+    public function getModDate() : string
     {
         return $this->mod_date;
     }
     
-    public function getRangeId()
+    public function getRangeId() : string
     {
         return $this->range_id;
     }
     
-    public function getTypeId()
+    public function getTypeId() : string
     {
         return $this->type_id;
     }
     
-    public function getUserId()
+    public function getUserId() : string
     {
         return $this->user_id;
     }
     
-    public function __set($var, $value)
+    public function __set(string $var, $value)
     {
         switch ($var) {
             case 'id':
@@ -247,72 +247,72 @@ class Item
         }
     }
     
-    public function setId($value)
+    public function setId(string $value)
     {
         $this->id = $value;
     }
     
-    public function setTitle($value)
+    public function setTitle(string $value)
     {
         $this->title = $value;
     }
     
-    public function setDescription($value)
+    public function setDescription($string value)
     {
         $this->description = $value;
     }
     
-    public function setBarcode($value)
+    public function setBarcode(string $value)
     {
         $this->barcode = $value;
     }
     
-    public function setImageUrl($value)
+    public function setImageUrl(string $value)
     {
         $this->image_url = $value;
     }
     
-    public function setYear($value)
+    public function setYear(int $value)
     {
         $this->year = $value > 0 ? (int) $value : null;
     }
     
-    public function setBom($value)
+    public function setBom(string $value)
     {
         $this->bom = $value;
     }
     
-    public function setSpecial($value)
+    public function setSpecial(bool $value)
     {
         $this->special = (bool) $value;
     }
     
-    public function setVariant($value)
+    public function setVariant(string $value)
     {
         $this->variant = $value;
     }
     
-    public function setCreateDate($value)
+    public function setCreateDate(string $value)
     {
         $this->create_date = $value;
     }
     
-    public function setModDate($value)
+    public function setModDate(string $value)
     {
         $this->mod_date = $value;
     }
     
-    public function setRangeId($value)
+    public function setRangeId(string $value)
     {
         $this->range_id = $value;
     }
     
-    public function setTypeId($value)
+    public function setTypeId(string $value)
     {
         $this->type_id = $value;
     }
     
-    public function setUserId($value)
+    public function setUserId(string $value)
     {
         $this->user_id = $value;
     }
