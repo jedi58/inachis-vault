@@ -215,33 +215,33 @@ class Item
     {
         switch ($var) {
             case 'id':
-                return $this->setId($value);
+                $this->setId($value);
             case 'title':
-                return $this->setTitle($value);
+                $this->setTitle($value);
             case 'description':
-                return $this->setDescription($value);
+                $this->setDescription($value);
             case 'barcode':
-                return $this->setBarcode($value);
+                $this->setBarcode($value);
             case 'image_url':
-                return $this->setImageUrl($value);
+                $this->setImageUrl($value);
             case 'year':
-                return $this->setYear($value);
+                $this->setYear($value);
             case 'bom':
-                return $this->setBom($value);
+                $this->setBom($value);
             case 'special':
-                return $this->setSpecial($value);
+                $this->setSpecial($value);
             case 'variant':
-                return $this->setVariant($value);
+                $this->setVariant($value);
             case 'create_date':
-                return $this->setCreateDate($value);
+                $this->setCreateDate($value);
             case 'mod_date':
-                return $this->setModDate($value);
+                $this->setModDate($value);
             case 'range_id':
-                return $this->setRangeId($value);
+                $this->setRangeId($value);
             case 'type_id':
-                return $this->setTypeId($value);
+                $this->setTypeId($value);
             case 'user_id':
-                return $this->setUserId($value);
+                $this->setUserId($value);
             default:
                 return parent::__set($var, $value);
         }

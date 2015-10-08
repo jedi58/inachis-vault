@@ -92,15 +92,15 @@ class ItemType
     {
         switch ($var) {
             case 'id':
-                return $this->setId($value);
+                $this->setId($value);
             case 'title':
-                return $this->setTitle($value);
+                $this->setTitle($value);
             case 'description':
-                return $this->setDescription($value);
+                $this->setDescription($value);
             case 'image_url':
-                return $this->setImageUrl($value);
+                $this->setImageUrl($value);
             default:
-                return $this->__set($var, $value);
+                $this->__set($var, $value);
         }        
     }
     
