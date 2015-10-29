@@ -101,42 +101,6 @@ class Item
         $this->__set('type_id', $type_id);
         $this->__set('user_id', $user_id);
     }
-    
-    public function __get($var)
-    {
-        switch ($var) {
-            case 'id':
-                return $this->getId();
-            case 'title':
-                return $this->getTitle();
-            case 'description':
-                return $this->getDescription();
-            case 'barcode':
-                return $this->getBarcode();
-            case 'image_url':
-                return $this->getImageUrl();
-            case 'year':
-                return $this->getYear();
-            case 'bom':
-                return $this->getBom();
-            case 'special':
-                return $this->getSpecial();
-            case 'variant':
-                return $this->getVariant();
-            case 'create_date':
-                return $this->getCreateDate();
-            case 'mod_date':
-                return $this->getModDate();
-            case 'range_id':
-                return $this->getRangeId();
-            case 'type_id':
-                return $this->getTypeId();
-            case 'user_id':
-                return $this->getUserId();
-            default:
-                return parent::__get($var);
-        }
-    }
     /**
      * Returns the UUID of the object
      * @return int The UUID of the Inachis\Vault\Item
@@ -210,43 +174,7 @@ class Item
     {
         return $this->user_id;
     }
-    
-    public function __set($var, $value)
-    {
-        switch ($var) {
-            case 'id':
-                $this->setId($value);
-            case 'title':
-                $this->setTitle($value);
-            case 'description':
-                $this->setDescription($value);
-            case 'barcode':
-                $this->setBarcode($value);
-            case 'image_url':
-                $this->setImageUrl($value);
-            case 'year':
-                $this->setYear($value);
-            case 'bom':
-                $this->setBom($value);
-            case 'special':
-                $this->setSpecial($value);
-            case 'variant':
-                $this->setVariant($value);
-            case 'create_date':
-                $this->setCreateDate($value);
-            case 'mod_date':
-                $this->setModDate($value);
-            case 'range_id':
-                $this->setRangeId($value);
-            case 'type_id':
-                $this->setTypeId($value);
-            case 'user_id':
-                $this->setUserId($value);
-            default:
-                return parent::__set($var, $value);
-        }
-    }
-    
+
     public function setId($value)
     {
         $this->id = $value;
