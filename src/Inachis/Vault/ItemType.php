@@ -40,9 +40,9 @@ class ItemType
             $description = '',
             $image_url = ''
     ) {
-        $this->__set('title', $title);
-        $this->__set('description', $description);
-        $this->__set('image_url', $image_url);
+        $this->setTitle($title);
+        $this->setDescription($description);
+        $this->setImageUrl($image_url);
     }
     public function getId()
     {
