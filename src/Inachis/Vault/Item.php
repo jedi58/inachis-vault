@@ -93,13 +93,13 @@ class Item
             $type_id = '',
             $user_id = ''
     ) {
-        $this->__set('title', $title);
-        $this->__set('description', $description);
-        $this->__set('create_date', DateTime('Y-m-d H:i:s'));
-        $this->__set('mod_date', DateTime('Y-m-d H:i:s'));
-        $this->__set('range_id', $range_id);
-        $this->__set('type_id', $type_id);
-        $this->__set('user_id', $user_id);
+        $this->setTitle($title);
+        $this->setDescription($description);
+        $this->setCreateDate(new \DateTime('now'));
+        $this->setModDate(new \DateTime('now'));
+        $this->setRangeId($range_id);
+        $this->setTypeId($type_id);
+        $this->setUserId($user_id);
     }
     /**
      * Returns the UUID of the object
