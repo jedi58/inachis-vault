@@ -54,11 +54,11 @@ class ItemRange
             $end_year = 0,
             $image_url = ''
     ) {
-        $this->__set('title', $title);
-        $this->__set('description', $description);
-        $this->__set('start_year', $start_year);
-        $this->__set('end_year', $end_year);
-        $this->__set('image_url', $image_url);
+        $this->setTitle($title);
+        $this->setDescription($description);
+        $this->setStartYear($start_year);
+        $this->setEndYear($end_year);
+        $this->setImageUrl($image_url);
     }
     public function getId()
     {
