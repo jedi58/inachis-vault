@@ -108,37 +108,6 @@ class UserItem
         $this->__set('added_value', $added_date);
     }
     
-    public function __get($var) {
-        switch ($var) {
-            case 'id':
-                return $this->getId();
-            case 'item_id':
-                return $this->getItemId();
-            case 'user_id':
-                return $this->getUserId();
-            case 'condition':
-                return $this->getCondition();
-            case 'complete':
-                return $this->getComplete();
-            case 'grade':
-                return $this->getGrade();
-            case 'location':
-                return $this->getLocation();
-            case 'signed':
-                return $this->getSigned();
-            case 'cost':
-                return $this->getCost();
-            case 'item_value':
-                return $this->getItemValue();
-            case 'notes':
-                return $this->getNotes();
-            case 'added_date':
-                return $this->getAddedDate();
-            default:
-                return parent::__get($var);
-        }
-    }
-    
     public function getId()
     {
         return $this->id;
@@ -197,38 +166,6 @@ class UserItem
     public function getAddedDate()
     {
         return $this->added_date;
-    }
-    
-    public function __set($var, $value)
-    {
-        switch ($var) {
-            case 'id':
-                $this->setId($value);
-            case 'item_id':
-                $this->setItemId($value);
-            case 'user_id':
-                $this->setUserId($value);
-            case 'condition':
-                $this->setCondition($value);
-            case 'complete':
-                $this->setComplete($value);
-            case 'grade':
-                $this->setGrade($value);
-            case 'location':
-                $this->setLocation($value);
-            case 'signed':
-                $this->setSigned($value);
-            case 'cost':
-                $this->setCost($value);
-            case 'item_value':
-                $this->setItemValue($value);
-            case 'notes':
-                $this->setNotes($value);
-            case 'added_date':
-                $this->setAddedDate($value);
-            default:
-                parent::__set($var, $value);
-        }
     }
     
     public function setId($value)
