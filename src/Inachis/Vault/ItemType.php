@@ -44,26 +44,6 @@ class ItemType
         $this->__set('description', $description);
         $this->__set('image_url', $image_url);
     }
-    /**
-     * 
-     * @param type $var
-     * @return type
-     */
-    public function __get($var)
-    {
-        switch ($var) {
-            case 'id':
-                return $this->getId();
-            case 'title':
-                return $this->getTitle();
-            case 'description':
-                return $this->getDescription();
-            case 'image_url':
-                return $this->getImageUrl();
-            default:
-                return $this->__get($var);
-        }
-    }
     public function getId()
     {
         return $this->id;
@@ -83,27 +63,6 @@ class ItemType
     {
         return $this->image_url;
     }
-    /**
-     * 
-     * @param type $var
-     * @param type $value
-     */
-    public function __set($var, $value)
-    {
-        switch ($var) {
-            case 'id':
-                $this->setId($value);
-            case 'title':
-                $this->setTitle($value);
-            case 'description':
-                $this->setDescription($value);
-            case 'image_url':
-                $this->setImageUrl($value);
-            default:
-                $this->__set($var, $value);
-        }        
-    }
-    
     public function setId($value)
     {
         $this->id = $value;
