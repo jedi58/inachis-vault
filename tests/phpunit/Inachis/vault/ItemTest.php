@@ -14,6 +14,6 @@ class ItemTest extends PHPUnit_Framework_TestCase
    
     public function testValidYear()
     {
-      $this->assertInternalType("int", $this->item->year);
+      $this->assertInternalType("int", $this->item->getYear());
     }
 }
