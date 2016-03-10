@@ -33,7 +33,7 @@ class Item
      * @Column(type="string", length=512)
      * @var string The filename and/or URI of the image to use for this item
      */
-    protected $image_url;
+    protected $imageUrl;
     /**
      * @Column(type="smallint", length=4)
      * @var int A 4-digit representation of the year of manufacture/release
@@ -58,27 +58,27 @@ class Item
      * @Column(type="DateTime")
      * @var DateTime The date/time that the item was added
      */
-    protected $create_date;
+    protected $createDate;
     /**
      * @Column(type="DateTime")
      * @var DateTime The date/time that the item was last modified
      */
-    protected $mod_date;
+    protected $modDate;
     /**
      * @Column(type="string", length=255, nullable=false)
      * @var string The unique identifier for the range this item belongs in
      */
-    protected $range_id;
+    protected $rangeId;
     /**
      * @Column(type="string", length=255, nullable=false)
      * @var string The unique identifier for the type of item this is
      */
-    protected $type_id;
+    protected $typeId;
     /**
      * @Column(type="string", length=255, nullable=false)
      * @var string The unique identifier for the user that added this item
      */
-    protected $user_id;
+    protected $userId;
     /**
      * Default constructor for Inachis\Vault\Item entity
      * @param string $title The title of the item
@@ -89,17 +89,17 @@ class Item
     public function __construct (
             $title = '',
             $description = '',
-            $range_id = '',
-            $type_id = '',
-            $user_id = ''
+            $rangeId = '',
+            $typeId = '',
+            $userId = ''
     ) {
         $this->setTitle($title);
         $this->setDescription($description);
         $this->setCreateDate(new \DateTime('now'));
         $this->setModDate(new \DateTime('now'));
-        $this->setRangeId($range_id);
-        $this->setTypeId($type_id);
-        $this->setUserId($user_id);
+        $this->setRangeId($rangeId);
+        $this->setTypeId($typeId);
+        $this->setUserId($userId);
     }
     /**
      * Returns the UUID of the object
@@ -127,7 +127,7 @@ class Item
     
     public function getImageUrl()
     {
-        return $this->image_url;
+        return $this->imageUrl;
     }
     
     public function getYear()
@@ -152,27 +152,27 @@ class Item
     
     public function getCreateDate()
     {
-        return $this->create_date;
+        return $this->createDate;
     }
     
     public function getModDate()
     {
-        return $this->mod_date;
+        return $this->modDate;
     }
     
     public function getRangeId()
     {
-        return $this->range_id;
+        return $this->rangeId;
     }
     
     public function getTypeId()
     {
-        return $this->type_id;
+        return $this->typeId;
     }
     
     public function getUserId()
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     public function setId($value)
@@ -197,7 +197,7 @@ class Item
     
     public function setImageUrl($value)
     {
-        $this->image_url = $value;
+        $this->imageUrl = $value;
     }
     
     public function setYear($value)
@@ -222,26 +222,26 @@ class Item
     
     public function setCreateDate($value)
     {
-        $this->create_date = $value;
+        $this->createDate = $value;
     }
     
     public function setModDate($value)
     {
-        $this->mod_date = $value;
+        $this->modDate = $value;
     }
     
     public function setRangeId($value)
     {
-        $this->range_id = $value;
+        $this->rangeId = $value;
     }
     
     public function setTypeId($value)
     {
-        $this->type_id = $value;
+        $this->typeId = $value;
     }
     
     public function setUserId($value)
     {
-        $this->user_id = $value;
+        $this->userId = $value;
     }
 }
