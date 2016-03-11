@@ -30,7 +30,7 @@ class ItemType
      */
     protected $image_url;
     /**
-     * 
+     *
      * @param type $title
      * @param type $description
      * @param type $image_url

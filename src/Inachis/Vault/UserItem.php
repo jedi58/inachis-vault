@@ -51,12 +51,12 @@ class UserItem
     protected $signed;
     /**
      * @Column(type="decimal", scale="3")
-     * @var float The price paid for a user's item 
+     * @var float The price paid for a user's item
      */
     protected $cost = 0.00;
     /**
      * @Column(type="decimal", scale="3")
-     * @var float The current (known) value of a user's item 
+     * @var float The current (known) value of a user's item
      */
     protected $item_value = 0.00;
     /**
@@ -84,17 +84,18 @@ class UserItem
      * @param string $added_date The date the item was added to the collection
      */
     public function __construct(
-            $item_id = '', 
-            $user_id = '', 
-            $condition = '', 
-            $complete = false, 
-            $grade = '', 
-            $location = '', 
-            $signed = '', 
-            $cost = 0.00, 
-            $item_value = 0.00, 
-            $notes = '', 
-            $added_date = '') {
+            $item_id = '',
+            $user_id = '',
+            $condition = '',
+            $complete = false,
+            $grade = '',
+            $location = '',
+            $signed = '',
+            $cost = 0.00,
+            $item_value = 0.00,
+            $notes = '',
+            $added_date = '')
+    {
         $this->__set('item_id', $item_id);
         $this->__set('user_id', $user_id);
         $this->__set('condition', $condition);

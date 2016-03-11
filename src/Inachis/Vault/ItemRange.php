@@ -40,7 +40,7 @@ class ItemRange
      */
     protected $image_url;
     /**
-     * 
+     *
      * @param type $title
      * @param type $description
      * @param type $start_year

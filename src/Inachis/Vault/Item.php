@@ -86,7 +86,7 @@ class Item
      * @param string $range_id The UUID of the range the item is in
      * @param string $type_id The UUID of the type of item it is
      */
-    public function __construct (
+    public function __construct(
             $title = '',
             $description = '',
             $rangeId = '',
