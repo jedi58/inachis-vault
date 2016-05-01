@@ -1,7 +1,67 @@
 [
-	{
+    {
 		"methods": [ "GET" ],
 		"path": "/vault",
 		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\VaultController::getVaultHomepage"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/range",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\RangeController::getRangeList"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/type",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemTypeController::getItemTypeList"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/year",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\VaultController::getYearList"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/range/[i:rangeId]",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemController::getItemListByRange"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/range/[i:rangeId]/item/[i:itemId]",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemController::getItem"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/type/[i:typeId]",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemController::getItemListByType"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/type/[i:typeId]/item/[i:itemId]",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemController::getItem"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/year/[i:year]",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemController::getItemListByYear"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/year/[i:year]/item/[i:itemId]",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemController::getItem"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/range/new",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\RangeController::getRange"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/type/new",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemTypeController::getItemType"
+	},
+	{
+		"methods": [ "GET" ],
+		"path": "/vault/browse/year/new",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\VaultController::getYear"
 	}
 ]
