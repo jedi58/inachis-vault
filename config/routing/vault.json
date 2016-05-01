@@ -1,0 +1,7 @@
+[
+	{
+		"methods": [ "GET" ],
+		"path": "/vault",
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\VaultController::getVaultHomepage"
+	}
+]
