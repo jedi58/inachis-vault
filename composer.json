@@ -35,7 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Inachis\\": "src/"
+            "Inachis\\Component\\": "src/Inachis/"
         }
     },
     "minimum-stability": "dev"
