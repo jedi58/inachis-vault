@@ -23,7 +23,7 @@
         "monolog/monolog": "1.*",
         "twig/twig": "1.*",
         
-        "jedi58/inachis": "@dev"
+        "jedi58/inachis": "@dev-master"
     },
     "require-dev": {
         "behat/behat": "2.*",
