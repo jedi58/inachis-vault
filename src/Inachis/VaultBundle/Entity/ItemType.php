@@ -34,10 +34,10 @@ class ItemType
      */
     protected $imageUrl;
     /**
-     * 
-     * @param type $title
-     * @param type $description
-     * @param type $imageUrl
+     *
+     * @param string $title
+     * @param string $description
+     * @param string $imageUrl
      */
     public function __construct(
             $title = '',

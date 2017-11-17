@@ -2,17 +2,13 @@
   "name": "jedi58/inachis-vault",
   "type": "library",
   "description": "An extension to the Inachis framework for recording collections",
-  "keywords": ["dev"],
+  "keywords": [
+    "dev"
+  ],
   "license": "MIT",
   "authors": [
     {
       "name": "David G. Paul"
-    }
-  ],
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/jedi58/inachis.git"
     }
   ],
   "require": {

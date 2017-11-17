@@ -3,7 +3,6 @@
 namespace Inachis\Component\VaultBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-//use Inachis\Component\CoreBundle\Entity\User;
 
 /**
  * Object for handling user owned items
@@ -22,13 +21,13 @@ class UserItem
     /**
      * @ORM\ManyToOne(targetEntity="Item")
      * @ORM\JoinColumn(name="itemId", referencedColumnName="id")
-     * @var string The UUID of the item owned by the user
+     * @var Item The item owned by the user
      */
-    protected $itemId;
+    protected $item;
     /**
      * @ORM\ManyToOne(targetEntity="Inachis\Component\CoreBundle\Entity\User", cascade={"detach"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @var string The unique identifier for the user that added this item
+     * @var User The unique identifier for the user that added this item
      */
     protected $user;
     /**
@@ -73,18 +72,18 @@ class UserItem
     protected $notes;
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime The date/time that the item was added
+     * @var string The date/time that the item was added
      */
     protected $createDate;
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime The date/time that the item was modified
+     * @var string The date/time that the item was modified
      */
     protected $modDate;
     /**
      * Default constructor
-     * @param string $itemId The ID of the item
-     * @param string $userId The owner of the item
+     * @param Item $item The ID of the item
+     * @param User $user The owner of the item
      * @param string $condition The condition of the item
      * @param bool $complete The completeness of the item
      * @param string $grade The grade of the item
@@ -92,11 +91,11 @@ class UserItem
      * @param string $signed The person who has signed the item if applicable
      * @param float $cost The original cost of the item
      * @param float $itemValue The current value of the item
-     * @param string $notes Any relevent notes for the item
+     * @param string $notes Any relevant notes for the item
      */
     public function __construct(
-            $itemId = '', 
-            $userId = '', 
+            $item = null,
+            $user = null,
             $condition = '', 
             $complete = false, 
             $grade = '', 
@@ -106,8 +105,8 @@ class UserItem
             $itemValue = 0.00, 
             $notes = ''
     ) {
-        $this->setItemId($itemId);
-        $this->setUserId($userId);
+        $this->setItem($item);
+        $this->setUser($user);
         $this->setCondition($condition);
         $this->setComplete($complete);
         $this->setGrade($grade);
@@ -125,14 +124,14 @@ class UserItem
         return $this->id;
     }
     
-    public function getItemId()
+    public function getItem()
     {
-        return $this->item_id;
+        return $this->item;
     }
     
-    public function getUserId()
+    public function getUser()
     {
-        return $this->user_id;
+        return $this->user;
     }
     
     public function getCondition()
@@ -167,7 +166,7 @@ class UserItem
     
     public function getItemValue()
     {
-        return (float) $this->item_value;
+        return (float) $this->itemValue;
     }
     
     public function getNotes()
@@ -197,14 +196,14 @@ class UserItem
         $this->id = $value;
     }
     
-    public function setItemId($value)
+    public function setItem(Item $value)
     {
-        $this->item_id = $value;
+        $this->item = $value;
     }
     
-    public function setUserId($value)
+    public function setUser(User $value)
     {
-        $this->user_id = $value;
+        $this->user = $value;
     }
     
     public function setCondition($value)
@@ -239,17 +238,12 @@ class UserItem
     
     public function setItemValue($value)
     {
-        $this->item_value = (float) $value;
+        $this->itemValue = (float) $value;
     }
     
     public function setNotes($value)
     {
         $this->notes = $value;
-    }
-    
-    public function setAddedDate($value)
-    {
-        $this->added_date = $value;
     }
     /**
      * Sets the value of {@link createDate}

@@ -55,46 +55,46 @@ class Item
     protected $special = false;
     /**
      * @ORM\Column(type="string", length=255)
-     * @var type If ID of the item this is a variant of if applicable
+     * @var string If ID of the item this is a variant of if applicable
      */
     protected $variant;
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime The date/time that the item was added
+     * @var string The date/time that the item was added
      */
     protected $createDate;
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime The date/time that the item was last modified
+     * @var string The date/time that the item was last modified
      */
     protected $modDate;
     /**
      * @ORM\ManyToOne(targetEntity="Inachis\Component\VaultBundle\Entity\ItemRange", cascade={"detach"})
      * @ORM\JoinColumn(name="range_id", referencedColumnName="id")
-     * @var string The unique identifier for the range this item belongs in
+     * @var ItemRange The unique identifier for the range this item belongs in
      */
     protected $range;
     /**
      * @ORM\ManyToOne(targetEntity="Inachis\Component\VaultBundle\Entity\ItemType", cascade={"detach"})
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
-     * @var string The unique identifier for the type of item this is
+     * @var ItemType The unique identifier for the type of item this is
      */
     protected $type;
     /**
      * @ORM\ManyToOne(targetEntity="Inachis\Component\CoreBundle\Entity\User", cascade={"detach"})
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
-     * @var string The unique identifier for the user that added this item
+     * @var User The unique identifier for the user that added this item
      */
     protected $user;
     /**
      * Default constructor for Inachis\Vault\Item entity
      * @param string $title The title of the item
      * @param string $description The description for the item
-     * @param string $range The UUID of the range the item is in
-     * @param string $type The UUID of the type of item it is
-     * @param string $user The UUID of the user creating the record
+     * @param ItemRange $range The UUID of the range the item is in
+     * @param ItemType $type The UUID of the type of item it is
+     * @param User $user The UUID of the user creating the record
      */
-    public function __construct (
+    public function __construct(
             $title = '',
             $description = '',
             $range = null,
