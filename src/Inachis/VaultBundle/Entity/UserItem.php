@@ -1,111 +1,123 @@
 <?php
 
-namespace Inachis\Vault;
+namespace Inachis\Component\VaultBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+//use Inachis\Component\CoreBundle\Entity\User;
 
 /**
  * Object for handling user owned items
- * @Entity @Table
+ * @ORM\Entity
+ * @ORM\Table
  */
 class UserItem
 {
     /**
-     * @Id @Column(type="string", unique=true, nullable=false)
-     * @GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
      * @var string The unique identifier for the object
      */
     protected $id;
     /**
-     * @Column(type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Item")
+     * @ORM\JoinColumn(name="itemId", referencedColumnName="id")
      * @var string The UUID of the item owned by the user
      */
-    protected $item_id;
+    protected $itemId;
     /**
-     * @Column(type="string", length=255, nullable=false)
-     * @var string The UUID of the user the item belongs to
+     * @ORM\ManyToOne(targetEntity="Inachis\Component\CoreBundle\Entity\User", cascade={"detach"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var string The unique identifier for the user that added this item
      */
-    protected $user_id;
+    protected $user;
     /**
-     * @Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100)
      * @var string The condition that the user's item is in
      */
     protected $condition;
     /**
-     * @Column(type="boolean")
+     * @ORM\Column(type="boolean")
      * @var bool Flag specifying whether the item is complete
      */
     protected $complete = false;
     /**
-     * @Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50)
      * @var string The grade given to the item by a grading authority (e.g. AFA)
      */
     protected $grade;
     /**
-     * @Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      * @var string Description of where the item is located
      */
     protected $location;
     /**
-     * @Column(type="string", length="100")
+     * @ORM\Column(type="string", length=100)
      * @var string By whom the item is signed, if applicable
      */
     protected $signed;
     /**
-     * @Column(type="decimal", scale="3")
+     * @ORM\Column(type="decimal", scale=3)
      * @var float The price paid for a user's item 
      */
     protected $cost = 0.00;
     /**
-     * @Column(type="decimal", scale="3")
+     * @ORM\Column(type="decimal", scale=3)
      * @var float The current (known) value of a user's item 
      */
-    protected $item_value = 0.00;
+    protected $itemValue = 0.00;
     /**
-     * @Column(type="text")
+     * @ORM\Column(type="text")
      * @var string Any notes relating the user's item
      */
     protected $notes;
     /**
-     * @Column(type="datetime")
+     * @ORM\Column(type="datetime")
      * @var DateTime The date/time that the item was added
      */
-    protected $added_date;
+    protected $createDate;
+    /**
+     * @ORM\Column(type="datetime")
+     * @var DateTime The date/time that the item was modified
+     */
+    protected $modDate;
     /**
      * Default constructor
-     * @param string $item_id The ID of the item
-     * @param string $user_id The owner of the item
+     * @param string $itemId The ID of the item
+     * @param string $userId The owner of the item
      * @param string $condition The condition of the item
      * @param bool $complete The completeness of the item
      * @param string $grade The grade of the item
      * @param string $location The current location of the item
      * @param string $signed The person who has signed the item if applicable
      * @param float $cost The original cost of the item
-     * @param float $item_value The current value of the item
+     * @param float $itemValue The current value of the item
      * @param string $notes Any relevent notes for the item
-     * @param string $added_date The date the item was added to the collection
      */
     public function __construct(
-            $item_id = '', 
-            $user_id = '', 
+            $itemId = '', 
+            $userId = '', 
             $condition = '', 
             $complete = false, 
             $grade = '', 
             $location = '', 
             $signed = '', 
             $cost = 0.00, 
-            $item_value = 0.00, 
-            $notes = '', 
-            $added_date = '') {
-        $this->__set('item_id', $item_id);
-        $this->__set('user_id', $user_id);
-        $this->__set('condition', $condition);
-        $this->__set('complete', $complete);
-        $this->__set('grade', $grade);
-        $this->__set('location', $location);
-        $this->__set('signed', $signed);
-        $this->__set('cost', $cost);
-        $this->__set('item_value', $item_value);
-        $this->__set('notes', $notes);
-        $this->__set('added_value', $added_date);
+            $itemValue = 0.00, 
+            $notes = ''
+    ) {
+        $this->setItemId($itemId);
+        $this->setUserId($userId);
+        $this->setCondition($condition);
+        $this->setComplete($complete);
+        $this->setGrade($grade);
+        $this->setLocation($signed);
+        $this->setSigned($signed);
+        $this->setCost($cost);
+        $this->setItemValue($itemValue);
+        $this->setNotes($notes);
+        $this->setCreateDateFromDateTime(new \DateTime('now'));
+        $this->setModDateFromDateTime(new \DateTime('now'));
     }
     
     public function getId()
@@ -163,9 +175,21 @@ class UserItem
         return $this->notes;
     }
     
-    public function getAddedDate()
+    /**
+     * Returns the value of {@link createDate}
+     * @return string The creation date of the {@link Page}
+     */
+    public function getCreateDate()
     {
-        return $this->added_date;
+        return $this->createDate;
+    }
+    /**
+     * Returns the value of {@link modDate}
+     * @return string The date the {@link Page} was last modified
+     */
+    public function getModDate()
+    {
+        return $this->modDate;
     }
     
     public function setId($value)
@@ -226,5 +250,37 @@ class UserItem
     public function setAddedDate($value)
     {
         $this->added_date = $value;
+    }
+    /**
+     * Sets the value of {@link createDate}
+     * @param string $value The date the post was created
+     */
+    public function setCreateDate($value)
+    {
+        $this->createDate = $value;
+    }
+    /**
+     * Sets the {@link createDate} from a DateTime object
+     * @param \DateTime $value The date to be set
+     */
+    public function setCreateDateFromDateTime(\DateTime $value)
+    {
+        $this->setCreateDate($value->format('Y-m-d H:i:s'));
+    }
+    /**
+     * Sets the value of {@link modDate}
+     * @param string $value Specifies the mod date for the {@link Page}
+     */
+    public function setModDate($value)
+    {
+        $this->modDate = $value;
+    }
+    /**
+     * Sets the {@link modDate} from a DateTime object
+     * @param \DateTime $value The date to set
+     */
+    public function setModDateFromDateTime(\DateTime $value)
+    {
+        $this->setModDate($value->format('Y-m-d H:i:s'));
     }
 }

@@ -1,105 +1,114 @@
 <?php
 
-namespace Inachis\Vault;
+namespace Inachis\Component\VaultBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Object for handling Items
- * @Entity @Table
+ * @ORM\Entity
+ * @ORM\Table(indexes={@ORM\Index(name="search_idx", columns={"title"})})
  */
 class Item
 {
     /**
-     * @Id @Column(type="string", unique=true, nullable=false)
-     * @GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
      * @var string The unique identifier for the item
      */
     protected $id;
     /**
-     * @Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @var string The descriptive title for the item
      */
     protected $title;
     /**
-     * @Column(type="text")
+     * @ORM\Column(type="text")
      * @var string A verbose description of the item
      */
     protected $description;
     /**
-     * @Column(type="string", length=3832)
+     * @ORM\Column(type="string", length=3832)
      * @var string If the item has an applicable barcode it can be stored here
      */
     protected $barcode;
     /**
-     * @Column(type="string", length=512)
+     * @ORM\Column(type="string", length=512)
      * @var string The filename and/or URI of the image to use for this item
      */
-    protected $image_url;
+    protected $imageUrl;
     /**
-     * @Column(type="smallint", length=4)
+     * @ORM\Column(type="smallint", length=4)
      * @var int A 4-digit representation of the year of manufacture/release
      */
     protected $year;
     /**
-     * @Column(type="simple_array")
+     * @ORM\Column(type="simple_array")
      * @var string A CSV list of items IDs that this item includes as part of it
      */
     protected $bom;
     /**
-     * @Column(type="boolean")
+     * @ORM\Column(type="boolean")
      * @var bool Flag indicating if this is an exclusive or limited item
      */
     protected $special = false;
     /**
-     * @Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      * @var type If ID of the item this is a variant of if applicable
      */
     protected $variant;
     /**
-     * @Column(type="DateTime")
+     * @ORM\Column(type="datetime")
      * @var DateTime The date/time that the item was added
      */
-    protected $create_date;
+    protected $createDate;
     /**
-     * @Column(type="DateTime")
+     * @ORM\Column(type="datetime")
      * @var DateTime The date/time that the item was last modified
      */
-    protected $mod_date;
+    protected $modDate;
     /**
-     * @Column(type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Inachis\Component\VaultBundle\Entity\ItemRange", cascade={"detach"})
+     * @ORM\JoinColumn(name="range_id", referencedColumnName="id")
      * @var string The unique identifier for the range this item belongs in
      */
-    protected $range_id;
+    protected $range;
     /**
-     * @Column(type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Inachis\Component\VaultBundle\Entity\ItemType", cascade={"detach"})
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      * @var string The unique identifier for the type of item this is
      */
-    protected $type_id;
+    protected $type;
     /**
-     * @Column(type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Inachis\Component\CoreBundle\Entity\User", cascade={"detach"})
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      * @var string The unique identifier for the user that added this item
      */
-    protected $user_id;
+    protected $user;
     /**
      * Default constructor for Inachis\Vault\Item entity
      * @param string $title The title of the item
      * @param string $description The description for the item
-     * @param string $range_id The UUID of the range the item is in
-     * @param string $type_id The UUID of the type of item it is
+     * @param string $range The UUID of the range the item is in
+     * @param string $type The UUID of the type of item it is
+     * @param string $user The UUID of the user creating the record
      */
     public function __construct (
             $title = '',
             $description = '',
-            $range_id = '',
-            $type_id = '',
-            $user_id = ''
+            $range = null,
+            $type = null,
+            $user = null
     ) {
         $this->setTitle($title);
         $this->setDescription($description);
-        $this->setCreateDate(new \DateTime('now'));
-        $this->setModDate(new \DateTime('now'));
-        $this->setRangeId($range_id);
-        $this->setTypeId($type_id);
-        $this->setUserId($user_id);
+        $currentTime = new \DateTime('now');
+        $this->setCreateDate($currentTime);
+        $this->setModDate($currentTime);
+        $this->setRange($range);
+        $this->setType($type);
+        $this->setUser($user);
     }
     /**
      * Returns the UUID of the object
@@ -127,7 +136,7 @@ class Item
     
     public function getImageUrl()
     {
-        return $this->image_url;
+        return $this->imageUrl;
     }
     
     public function getYear()
@@ -142,7 +151,7 @@ class Item
     
     public function getSpecial()
     {
-        return (bool) $this->getSpecial;
+        return (bool) $this->special;
     }
     
     public function getVariant()
@@ -152,27 +161,27 @@ class Item
     
     public function getCreateDate()
     {
-        return $this->create_date;
+        return $this->createDate;
     }
     
     public function getModDate()
     {
-        return $this->mod_date;
+        return $this->modDate;
     }
     
-    public function getRangeId()
+    public function getRange()
     {
-        return $this->range_id;
+        return $this->range;
     }
     
-    public function getTypeId()
+    public function getType()
     {
-        return $this->type_id;
+        return $this->type;
     }
     
-    public function getUserId()
+    public function getUser()
     {
-        return $this->user_id;
+        return $this->user;
     }
 
     public function setId($value)
@@ -197,12 +206,18 @@ class Item
     
     public function setImageUrl($value)
     {
-        $this->image_url = $value;
+        $this->imageUrl = $value;
     }
     
     public function setYear($value)
     {
         $this->year = $value > 0 ? (int) $value : null;
+        if ($this->range->getId() > 0 &&
+            $this->year < $this->range->getStartYear() ||
+            $this->year > $this->range->getEndYear()
+        ) {
+            throw new \Exception(sprintf('Year \'%i\' is out of bounds for the selected range', $value));
+        }
     }
     
     public function setBom($value)
@@ -222,26 +237,26 @@ class Item
     
     public function setCreateDate($value)
     {
-        $this->create_date = $value;
+        $this->createDate = $value;
     }
     
     public function setModDate($value)
     {
-        $this->mod_date = $value;
+        $this->modDate = $value;
     }
     
-    public function setRangeId($value)
+    public function setRange(ItemRange $value)
     {
-        $this->range_id = $value;
+        $this->range = $value;
     }
     
-    public function setTypeId($value)
+    public function setType(ItemType $value)
     {
-        $this->type_id = $value;
+        $this->type = $value;
     }
     
-    public function setUserId($value)
+    public function setUser(User $value)
     {
-        $this->user_id = $value;
+        $this->user = $value;
     }
 }

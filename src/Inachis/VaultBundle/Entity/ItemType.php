@@ -1,48 +1,52 @@
 <?php
 
-namespace Inachis\Vault;
+namespace Inachis\Component\VaultBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Object for handling types that describe \Inachis\Vault\Item objects
- * @Entity @Table
+ * Object for handling types that describe {@link Item} objects
+ * @ORM\Entity
+ * @ORM\Table(indexes={@ORM\Index(name="search_idx", columns={"title"})})
  */
 class ItemType
 {
     /**
-     * @Id @Column(type="string", unique=true, nullable=false)
-     * @GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
      * @var string The unique identifier for the item range
      */
     protected $id;
     /**
-     * @Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @var string The name of the type
      */
     protected $title;
     /**
-     * @Column(type="text")
+     * @ORM\Column(type="text")
      * @var string The description of the type
      */
     protected $description;
     /**
-     * @Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      * @var string The filename or URI to an image representing the range
      */
-    protected $image_url;
+    protected $imageUrl;
     /**
      * 
      * @param type $title
      * @param type $description
-     * @param type $image_url
+     * @param type $imageUrl
      */
     public function __construct(
             $title = '',
             $description = '',
-            $image_url = ''
+            $imageUrl = ''
     ) {
         $this->setTitle($title);
         $this->setDescription($description);
-        $this->setImageUrl($image_url);
+        $this->setImageUrl($imageUrl);
     }
     public function getId()
     {
@@ -61,7 +65,7 @@ class ItemType
     
     public function getImageUrl()
     {
-        return $this->image_url;
+        return $this->imageUrl;
     }
     public function setId($value)
     {
@@ -80,6 +84,6 @@ class ItemType
     
     public function setImageUrl($value)
     {
-        $this->image_url = $value;
+        $this->imageUrl = $value;
     }
 }
