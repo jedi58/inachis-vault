@@ -3,6 +3,7 @@
 namespace Inachis\Component\VaultBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Inachis\Component\CoreBundle\Entity\User;
 
 /**
  * Object for handling Items
@@ -90,9 +91,9 @@ class Item
      * Default constructor for Inachis\Vault\Item entity
      * @param string $title The title of the item
      * @param string $description The description for the item
-     * @param ItemRange $range The UUID of the range the item is in
-     * @param ItemType $type The UUID of the type of item it is
-     * @param User $user The UUID of the user creating the record
+     * @param ItemRange|null $range The range the item is in
+     * @param ItemType|null $type The type of item it is
+     * @param User|null $user The user creating the record
      */
     public function __construct(
             $title = '',
@@ -101,9 +102,9 @@ class Item
             $type = null,
             $user = null
     ) {
+        $currentTime = new \DateTime('now');
         $this->setTitle($title);
         $this->setDescription($description);
-        $currentTime = new \DateTime('now');
         $this->setCreateDate($currentTime);
         $this->setModDate($currentTime);
         $this->setRange($range);
@@ -116,7 +117,7 @@ class Item
      */
     public function getId()
     {
-        return (int) $this->id;
+        return $this->id;
     }
     
     public function getTitle()
@@ -216,7 +217,7 @@ class Item
             $this->year < $this->range->getStartYear() ||
             $this->year > $this->range->getEndYear()
         ) {
-            throw new \Exception(sprintf('Year \'%i\' is out of bounds for the selected range', $value));
+            throw new \Exception(sprintf('Year \'%d\' is out of bounds for the selected range', $value));
         }
     }
     
@@ -245,17 +246,17 @@ class Item
         $this->modDate = $value;
     }
     
-    public function setRange(ItemRange $value)
+    public function setRange(ItemRange $value = null)
     {
         $this->range = $value;
     }
     
-    public function setType(ItemType $value)
+    public function setType(ItemType $value = null)
     {
         $this->type = $value;
     }
     
-    public function setUser(User $value)
+    public function setUser(User $value = null)
     {
         $this->user = $value;
     }
