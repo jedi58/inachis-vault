@@ -1,0 +1,25 @@
+<form class="vault vault__search">
+    <fieldset>
+        <p>
+            {% if data.item.item_id is not empty %}
+            <a class="icon-step-backward" href="/vault/browse/{{ data.browse.mode }}/{{ data.browse.key }}" title="Go back">
+                <span>Go back</span></a>
+            {% endif %}
+            {% if data.browse.mode is not empty and data.item.id is empty %}
+            <a class="icon-step-backward" href="/vault{% if data.browse.mode is not empty %}/browse/{{ data.browse.mode }}{% endif %}" title="Go back">
+                <span>Go back</span></a>
+            {% endif %}
+            {% if data.session.user.hasVaultAccess() and in range or item view %}
+            <a class="icon-add" href="/vault/browse/{{ data.browse.mode }}/{{data.browse.key }}/item/new" title="Add a new item">
+                <span>Add a new item</span></a>
+            {% endif %}
+            {% data.browse.mode == 'range' and data.browse.key is empty %}
+            <a class="icon-add" href="/vault/browse/range/new" title="Add a new range">
+                <span>Add a new range</span></a>
+            {% endif %}
+            <label for="search_query">Search</label>
+            <input type="search" name="search_query" id="search_query" value="{{ data.search.keywords }}" results="5" />
+            <button type="submit">Search</button>
+        </p>
+    </fieldset>
+</form>
