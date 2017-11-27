@@ -17,7 +17,7 @@
 	{
 		"methods": [ "GET" ],
 		"path": "/vault/browse/year",
-		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\VaultController::getYearList"
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemController::getYearList"
 	},
 	{
 		"methods": [ "GET" ],
@@ -62,6 +62,6 @@
 	{
 		"methods": [ "GET" ],
 		"path": "/vault/browse/year/new",
-		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\VaultController::getYear"
+		"action": "\\Inachis\\Component\\VaultBundle\\Controller\\ItemController::getYear"
 	}
 ]
