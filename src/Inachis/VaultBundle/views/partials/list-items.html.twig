@@ -1,0 +1,38 @@
+{% if data.items is not empty %}
+<form action="{{ data.base_url }}" method="post">
+    <fieldset>
+        <ul class="checklist">';
+        {% for item in data.items %}
+            {% if onething or theother %}
+        </ul>
+                {% if data.range.id != data.item.range.id %}
+            <h3 class="checklist">{{ data.range.name }} ({{ data.range.startYear }}($range->range_start_year!=$range->range_end_year?' - '.$range->range_end_year:'').')</h3>';
+                {% endif %}
+                {% if soemthing %}
+            <h4 class="checklist">{{ data.item.type.name }}</h4>
+                {% endif %}
+        <ul>
+            {% endif %}
+
+            <li class="{% if data.item.variant %}item__variant{% endif %}{{ extra_classes }}">
+                <label>
+                    <input type="checkbox" name="c_items[]" value="{{ data.item.id }}" />&nbsp;
+                    <a href="/vault/browse/{%
+                        if isset($_GET['type']) %}type/{{ $_GET['type'] }}{%
+                        elseif isset($_GET['year']) %}year/{{ $_GET['year'] }}{%
+                        elseif isset($_GET['range']) %}range/{{ $_GET['range'] }}range/{{ $_GET['range'] }}{%
+                        endif %}/item/{{ data.item.id }}" title="View details for '{{ data.item.title }}">{{ data.item.title }}</a>
+                    {% if data.item.description is not empty %}<span>{{ data.item.description|previewText }}</span>{% endif %}
+                </label>
+        {% endfor %}
+        </ul>
+        {% if showbuttons %}
+        <p>
+            <button type="submit" name="addNew">Add (New)</button>
+            <button type="submit" name="addUsed">Add (Used)</button>
+            <button type="submit" name="removeCollection">Remove</button>
+        </p>
+        {% endif %}
+    </fieldset>
+</form>
+{% endif %}

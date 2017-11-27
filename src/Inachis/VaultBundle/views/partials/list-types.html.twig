@@ -1,0 +1,5 @@
+<ul class="menu_list">';
+    {% for type in data.types %}
+    <li><a href="/vault/browse/type/{{ type.id }}" title="View items for {{ type.name }}">{{ type.name }}</a></li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,258 @@
+<form action="/vault/browse/' . $extra_param . '" method="post" enctype="multipart/form-data" id="vault vault__form">
+    <h3>{{ data.item.title }}</h3>
+    <img src="/images/'.(sizeof($item->item_image_url) > 0?'custom/collection/'.$item->item_image_url[0]:'sw-no-image.png').'" alt="No image available for this item" title="No Image available for this item" class="float_left bordered" id="item_main_image" />
+    '.($item->item_special?'
+    <p><img src="/images/figspecial.png" alt="Specials and Exclusives" title="Specials and Exclusives" /></p>':'');
+    if ($_SESSION['username'] == 'jedi58' || ($_SESSION['username'] == 'SOLO TROOPER' && $range->range_id >18 && $range->range_id < 32)) {
+    $temp .= '
+    <fieldset id="admin_card"'.($item->item_id > 0?' style="display:none;"':'').'>
+    <input type="hidden" name="item_id" value="{{ data.item.id }}" />
+    <input type="hidden" name="action" id="action" value="'.($_GET['item_id']>0?'save':'new').'" />
+    <p>
+        <label for="item_title">Name</label>
+        <input type="text" name="item_title" id="item_title" value="'.encodeHTML($item->item_title).'" required="required" />
+    </p>
+    <p>
+        <label for="item_desc">Description</label>
+        <textarea name="item_desc" id="item_desc" rows="5">'.encodeHTML(strip_tags(str_replace('</p><p>', PHP_EOL, $item->item_desc))).'</textarea>
+    </p>
+    <p>
+        <label for="range_id">Range</label>
+        <select name="range_id" id="range_id">';
+            if (!empty($all_ranges)) {
+            foreach ($all_ranges as $aRange) {
+            $temp .= '
+            <option value="'.$aRange->range_id.'"'.($aRange->range_id==$item->range_id?' selected="selected"':'').'>'.$aRange->range_name.'</option>';
+            }
+            }
+            $temp .='
+        </select>
+    </p>
+    <p>
+        <label for="item_type_id">Type</label>
+        <select name="item_type_id" id="item_type_id">';
+            if (!empty($all_types)) {
+            foreach ($all_types as $type) {
+            $temp .= '
+            <option value="'.$type->item_type_id.'"'.($type->item_type_id==$item->item_type_id?' selected="selected"':'').'>'.$type->item_type_name.'</option>';
+            }
+            }
+            $temp .= '
+        </select>
+    </p>
+    <p>
+        <label for="item_year">Year</label>
+        <select name="item_year" id="item_year">';
+            if (!empty($all_years)) {
+            foreach ($all_years as $year) {
+            $temp .= '
+            <option value="'.$year.'"'.($year==$item->item_year?' selected="selected"':'').'>'.$year.'</option>';
+            }
+            }
+            $temp .= '
+        </select>
+    </p>
+    <p>
+        <label for="item_special">Special / Exclusive?</label>
+        <select name="item_special" id="item_special">
+            <option value="0"'.($item->item_special == 0?' selected="selected"':'').'>No</option>
+            <option value="1"'.($item->item_special == 1?' selected="selected"':'').'>Yes</option>
+        </select>
+    </p>
+    <p>
+        <label for="item_barcode">Barcode</label>
+        <input type="text" name="item_barcode" id="item_barcode" value="'.$item->item_barcode.'" />
+    </p>';
+    if ($item->item_id > 0) {
+    $temp .= '
+    <p><strong>Images</strong></p>';
+    if (sizeof($item->item_image_url)) {
+    $temp .= '
+    <ol>';
+        $counter = 0;
+        foreach ($item->item_image_url as $img_url) {
+        $temp .= '
+        <li>'.$img_url.' - <a href="/vault/browse/'.$_GET['browse'].'/'.intval($_GET[$_GET['browse']]).'/item/'.$_GET['item_id'].'/?remove_image='.($counter++).'" title="Remove this image"><span>Remove</span></a></li>';
+        }
+        $temp .= '
+    </ol>';
+    }
+    else {
+    $temp .= '
+    <p>No images for current item.</p>';
+    }
+    }
+    $temp .= '
+    <p><strong>Variations</strong> - <a href="#" title="Add a new variation" id="add_variation_link">Add</a></p>
+    <ol>';
+        if (!empty($variations)) {
+        foreach ($variations as $varitation) {
+        $variation->item_desc = trim(strip_tags($variation->item_desc));
+        if (substr($variation->item_desc, 0, 1) != '(') {
+        $variation->item_desc = '';
+        }
+        else {
+        $variation->item_desc = substr($variation->item_desc, 0, strpos($variation->item_desc, ')') + 1);
+        }
+        $temp .= '
+        <li>'.encodeHTML($variation->item_title).' <span>'.($variation->item_desc!=''?encodeHTML(previewText($variation->item_desc)):'').'</span></li>';
+        }
+        }
+        $temp .= '
+    </ol>
+    <p>
+        <label for="new_item_image_url">Upload new item image</label>
+        <input type="file" name="new_item_image_url" id="new_item_image_url" />
+    </p>
+    <p>'.($item->item_id < 1?'
+        <button type="submit">Save</button>':'
+        <a href="#" title="Cancel changes" class="button">Cancel</a>').'
+    </p>
+    </fieldset>';
+    }
+    else {
+    $temp .= '
+    <input type="hidden" name="item_barcode" id="item_barcode" value="'.$item->item_barcode.'" />';
+    }
+    if ($item->item_id > 0) {
+    $temp .= '
+    <div id="item_details_card">'.
+        ($item->item_desc != ''?'
+        <p>'.$item->item_desc.'</p>':'').'
+        <p><strong>'.$all_ranges[intval($item->range_id)]->range_name.'</strong> // <em>'.$item->item_year.'</em> // '.$all_types[$item->item_type_id]->item_type_name.'</p>' .
+        ($item->item_barcode!=''?'
+        <div id="item_barcode_image"></div>':'') . '
+    </div>';
+    if (!empty($variations)) {
+    $temp .= '
+    <table summary="Variations of the item" class="nice_table" id="item_variations_table">
+        <caption>Variations</caption>
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Range</th>
+            <th>Year</th>
+            <!-- <th>Condition</th> -->
+        </tr>
+        <thead>
+        <tbody>';
+        $zebraRow = false;
+        foreach ($variations as $variation) {
+        $variation->item_desc = trim(strip_tags($variation->item_desc));
+        if (substr($variation->item_desc, 0, 1) != '(') {
+        $variation->item_desc = '';
+        }
+        else {
+        $variation->item_desc = substr($variation->item_desc, 0, strpos($variation->item_desc, ')') + 1);
+        }
+        $temp .= '
+        <tr'.($zebraRow?' class="zebraRow"':'').'>
+        <td>'.htmlentities($variation->item_title).' <span>'.($variation->item_desc!=''?htmlentities(previewText($variation->item_desc)):'').'</span></td>
+        <td>'.$all_ranges[intval($variation->range_id)]->range_name.'</td>
+        <td>'.$variation->item_year.'</td>
+        <!-- <td>'.'</td> -->
+        <td><a href="/vault/browse/'.$_GET['browse'].'/'.$_GET[$_GET['browse']].'/item/'.$variation->item_id.'" class="view"><span>view</span></a></td>
+        </tr>';
+        $zebraRow = !$zebraRow;
+        }
+        $temp .= '
+        </tbody>
+    </table>';
+    }
+    if (!empty($related)) {
+    $temp .= '
+    <table summary="Related items" class="nice_table" id="item_relations_table">
+        <caption>Related Items</caption>
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Range</th>
+            <th>Year</th>
+        </tr>
+        <thead>
+        <tbody>';
+        $zebraRow = false;
+        foreach ($related as $relatedItem) {
+        $relatedItem->item_desc = trim(strip_tags($relatedItem->item_desc));
+        if (substr($relatedItem->item_desc, 0, 1) != '(') {
+        $relatedItem->item_desc = '';
+        }
+        else {
+        $relatedItem->item_desc = substr($relatedItem->item_desc, 0, strpos($relatedItem->item_desc, ')') + 1);
+        }
+        $temp .= '
+        <tr'.($zebraRow?' class="zebraRow"':'').'>
+        <td>'.encodeHTML($relatedItem->item_title).' <span>'.($relatedItem->item_desc!=''?encodeHTML(previewText($relatedItem->item_desc)):'').'</span></td>
+        <td>'.$all_ranges[intval($relatedItem->range_id)]->range_name.'</td>
+        <td>'.$relatedItem->item_year.'</td>
+        <!-- <td>'.'</td> -->
+        <td><a href="/vault/browse/'.$_GET['browse'].'/'.$_GET[$_GET['browse']].'/item/'.$relatedItem->item_id.'" class="view"><span>view</span></a></td>
+        </tr>';
+        $zebraRow = !$zebraRow;
+        }
+        $temp .= '
+        </tbody>
+    </table>';
+    }
+
+    }
+    if (sizeof($item->item_image_url) > 1) {
+    $temp .= '
+    <p id="extra_images">';
+        foreach ($item->item_image_url as $key=>$item_img) {
+        $temp .= '
+        <a href="#" title="View Image ' . ($key + 1) . '">
+            <img src="/includes/thumbnail.php?img_url=/images/custom/collection/'.$item_img.'&x=110&y=110" alt="Image ' . ($key + 1) . '" title="Image ' . ($key + 1) . '" /></a>';
+        }
+        $temp .= '
+    </p>';
+    }
+{% if data.item.id is not empty %}
+    <fieldset id="item_card">
+        <input type="hidden" name="user_id" value="{{ data.user.id }}" />
+        <input type="hidden" name="u_action" id="u_action" value="'.($userItem->item_user_id>0?'save':'new').'" />
+        <legend>Your Item</legend>
+        <p>
+            <label for="item_user_condition">Condition</label>
+            <select name="condition" id="item_user_condition">
+                <option value="">Not got</option>
+                <option value="mib"'.($userItem->item_user_condition=='mib'?' selected="selected"':'').'>Boxed / Carded</option>
+                <option value="loose"'.($userItem->item_user_condition=='loose'?' selected="selected"':'').'>Loose</option>
+            </select>
+        </p>
+        <p>
+            <label for="item_user_complete">Complete?</label>
+            <select name="complete" id="item_user_complete">
+                <option value="1"'.($userItem->item_user_complete=='1'?' selected="selected"':'').'>Yes</option>
+                <option value="0"'.($userItem->item_user_complete=='0'?' selected="selected"':'').'>No</option>
+            </select>
+        </p>
+        <p>
+            <label for="item_user_grade">Grade (AFA / UKG) <span>(Example: AFA 85)</span></label>
+            <input type="text" name="grade" id="item_user_grade" value="{{ data.userItem.grade }}" />
+        </p>
+        <p>
+            <label for="item_user_location">Location <span>(Example: Box 1, or Attic, etc.)</span></label>
+            <input type="text" name="location" id="item_user_location" value="{{ data.userItem.location }}" />
+        </p>
+        <p>
+            <label for="item_user_signed">Signed by <span>(Leave blank if not applicable)</span></label>
+            <textarea name="signed" id="item_user_signed" pattern="[a-zA-Z\s\.]*">{{ data.userItem.signed }}</textarea>
+        </p>
+        <p>
+            <label for="item_user_cost">Cost Price &pound;</label>
+            <input type="text" name="item_user_cost" id="item_user_cost" value="'.number_format($userItem->item_user_cost,3).'" pattern="[0-9\,]+\.[0-9]{2,3}" />
+        </p>
+        <p>
+            <label for="item_user_value">Estimated Value &pound;</label>
+            <input type="text" name="value" id="item_user_value" value="'.number_format($userItem->item_user_value,3).'" pattern="[0-9\,]+\.[0-9]{2,3}" />
+        </p>
+        <p>
+            <label for="item_user_notes">Notes</label>
+            <textarea name="notes" id="item_user_notes">{{ data.userItem.notes }}</textarea>
+        </p>
+    </fieldset>
+{% endif %}
+
+    <p class="button-row"><button type="submit">Save</button></p>
+</form>

@@ -1,0 +1,19 @@
+<h3>Add a new range</h3>
+<form action="/vault/browse/range/'.$_GET['range'].'" method="post" enctype="multipart/form-data" id="vault_form">
+    <fieldset id="admin_card">
+        <input type="hidden" name="action" id="action" value="($_GET['range']>0?'save':'new')" />
+        <p>
+            <label for="range_name">Name</label>
+            <input type="text" name="range_name" id="range_name" value="{{ data.range.name }}" required="required" />
+        </p>
+        <p>
+            <label for="range_start_year">Start Year</label>
+            <input type="text" name="range_start_year" id="range_start_year" value="{{ data.range.startYear }}" required="required" />
+        </p>
+        <p>
+            <label for="range_end_year">End Year</label>
+            <input type="text" name="range_end_year" id="range_end_year" value="{{ data.range.endYear }}" required="required" />
+        </p>
+    </fieldset>
+    <p><button type="submit">Save</button></p>
+</form>

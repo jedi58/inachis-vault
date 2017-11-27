@@ -1,0 +1,9 @@
+{% if data.ranges is not empty %}
+<ul class="menu_list">';
+    {% for range in data.ranges %}
+    <li>
+        <h3><a href="/vault/browse/range/{{ range.id }}" title="View items for {{ range.name }} range">{{ range.name }}</a></h3>
+        <p>{{ range.startYear }} - {{ range.endYear }}</p>
+    </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,5 @@
+<ul class="menu_list">
+    {% for year in data.years %}
+    <li><a href="/vault/browse/year/{{ year }}" title="View items for {{ year }}">{{ year }}</a></li>
+    {% endfor %}
+</ul>
